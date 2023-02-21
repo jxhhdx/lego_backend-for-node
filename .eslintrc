@@ -1,4 +1,10 @@
 {
-  "root": true,
-  "extends": "eslint-config-egg/typescript"
+  "extends": "eslint-config-egg/typescript",
+  "rules": {
+    "@typescript-eslint/semi": ["off", "always"],
+    "comma-dangle": 0
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
 }

@@ -1,52 +1,57 @@
 {
-  "name": "lego_backend-for-node",
+  "name": "lego-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "test",
   "private": true,
   "egg": {
-    "typescript": true
+    "typescript": true,
+    "declarations": true
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-lego_backend-for-node",
-    "stop": "egg-scripts stop --title=egg-server-lego_backend-for-node",
+    "start": "egg-scripts start --daemon --title=egg-server-lego-backend",
+    "stop": "egg-scripts stop --title=egg-server-lego-backend",
     "dev": "egg-bin dev",
-    "test-local": "egg-bin test -p",
+    "debug": "egg-bin debug",
+    "test-local": "egg-bin test",
     "test": "npm run lint -- --fix && npm run test-local",
-    "cov": "egg-bin cov -p",
-    "ci": "npm run lint && npm run cov && npm run tsc && npm run clean",
-    "lint": "eslint . --ext .ts --cache",
-    "tsc": "tsc",
-    "clean": "tsc -b --clean"
+    "cov": "egg-bin cov",
+    "tsc": "ets && tsc -p tsconfig.json",
+    "ci": "npm run lint && npm run cov && npm run tsc",
+    "autod": "autod",
+    "lint": "eslint . --ext .ts",
+    "clean": "ets clean"
   },
   "dependencies": {
-    "@eggjs/tegg": "^3.5.2",
-    "@eggjs/tegg-aop-plugin": "^3.5.2",
-    "@eggjs/tegg-config": "^3.2.3",
-    "@eggjs/tegg-controller-plugin": "^3.5.2",
-    "@eggjs/tegg-eventbus-plugin": "^3.5.2",
-    "@eggjs/tegg-plugin": "^3.5.2",
-    "@eggjs/tegg-schedule-plugin": "^3.5.2",
-    "egg": "^3.15.0",
-    "egg-scripts": "^2.17.0",
-    "egg-tracer": "^2.0.0"
+    "egg": "^2.6.1",
+    "egg-scripts": "^2.6.0"
   },
   "devDependencies": {
-    "@types/mocha": "10",
-    "@types/node": "18",
-    "@eggjs/tsconfig": "1",
-    "egg-bin": "6",
-    "egg-mock": "5",
-    "eslint": "8",
-    "eslint-config-egg": "12",
-    "typescript": "4"
+    "@types/mocha": "^2.2.40",
+    "@types/node": "^7.0.12",
+    "@types/supertest": "^2.0.0",
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-ci": "^1.8.0",
+    "egg-bin": "^4.11.0",
+    "egg-mock": "^3.16.0",
+    "tslib": "^1.9.0",
+    "eslint": "^6.7.2",
+    "eslint-config-egg": "^8.0.0",
+    "typescript": "^3.0.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=8.9.0"
+  },
+  "ci": {
+    "version": "8"
   },
   "repository": {
     "type": "git",
     "url": ""
   },
-  "author": "",
+  "eslintIgnore": [
+    "coverage"
+  ],
+  "author": "viking zhang",
   "license": "MIT"
 }
