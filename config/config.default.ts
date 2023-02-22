@@ -17,11 +17,16 @@ export default (appInfo: EggAppInfo) => {
   config.view = {
     defaultViewEngine: 'nunjucks'
   }
-
+  // config.logger = {
+  //   consoleLevel: 'DEBUG'
+  // }
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     baseUrl: 'default.url',
+    myLogger: {
+      allowedMethod: [ 'POST', 'GET' ]
+    },
   };
 
   // the return config will combines to EggAppConfig
