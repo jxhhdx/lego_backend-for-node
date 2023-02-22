@@ -8,9 +8,16 @@ export default class TestController extends Controller {
     const resp = {
       query,
       id,
-      body
+      body 
     }
     ctx.body = resp
     ctx.status = 200
+  }
+  async getDog() {
+    const { service, ctx } = this
+    const resp = await service.dog.show()
+    await ctx.render('test.nj', { url: resp.message })
+    // ctx.body = resp.message;
+    // ctx.status = 200
   }
 }

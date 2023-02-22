@@ -14,10 +14,14 @@ export default (appInfo: EggAppInfo) => {
       enable: false
     }
   }
+  config.view = {
+    defaultViewEngine: 'nunjucks'
+  }
 
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
+    baseUrl: 'default.url',
   };
 
   // the return config will combines to EggAppConfig
