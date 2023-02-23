@@ -21,7 +21,5 @@ export default class TestController extends Controller {
     const { service, ctx } = this
     const resp = await service.dog.show()
     await ctx.render('test.nj', { url: resp.message })
-    // ctx.body = resp.message;
-    // ctx.status = 200
   }
 }
