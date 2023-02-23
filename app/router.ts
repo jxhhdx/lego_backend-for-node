@@ -12,7 +12,7 @@ export default (app: Application) => {
   // router.get('/test/:id', controller.test.index)
   // router.post('/test/:id', controller.test.index)
   // router.get('/dog', logger, controller.test.getDog)
-  router.post('/api/users/create', controller.user.createByEmail)
-  router.get('/api/users/getUserInfo', jwt, controller.user.show)
-  router.post('/api/users/loginByEmail', controller.user.loginByEmail)
+  router.post('/api/user/create', controller.user.createByEmail)
+  router.get('/api/user/getUserInfo', jwt, controller.user.show)
+  router.post('/api/user/loginByEmail', controller.user.loginByEmail)
 };
