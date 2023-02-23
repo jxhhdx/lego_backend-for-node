@@ -17,6 +17,9 @@ export default (appInfo: EggAppInfo) => {
   config.view = {
     defaultViewEngine: 'nunjucks'
   }
+  config.bcrypt = {
+    saltRounds: 10
+  }
   // config.logger = {
   //   consoleLevel: 'DEBUG'
   // }
