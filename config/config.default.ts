@@ -21,7 +21,7 @@ export default (appInfo: EggAppInfo) => {
   //   consoleLevel: 'DEBUG'
   // }
   config.mongoose = {
-    url: 'mongodb://localhost:27017',
+    url: 'mongodb://127.0.0.1:27017',
     options: { dbName: 'legodb', user: 'root',pass: '123456' } as any
   }
   // add your special config in here
