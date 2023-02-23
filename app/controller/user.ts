@@ -1,5 +1,4 @@
 import { Controller } from 'egg'
-import { sign, verify } from 'jsonwebtoken'
 
 const userCreateRules = {
   username: 'email',
@@ -73,7 +72,7 @@ export default class UserController extends Controller {
     // ctx.session.username = user.username
     // Registered claims 注册相关的信息
     // Public claims 公共信息: should be unique like email, address or phone_number
-    const token = sign({ username: user.username }, app.config.jwt.secret, { expiresIn: 60 * 60 })
+    const token = app.jwt.sign({ username: user.username }, app.config.jwt.secret, { expiresIn: 60 * 60 })
     ctx.helper.success({ ctx, res: {token}, msg: '登录成功' })
   }
   async show() {

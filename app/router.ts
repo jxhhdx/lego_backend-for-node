@@ -13,6 +13,6 @@ export default (app: Application) => {
   // router.post('/test/:id', controller.test.index)
   // router.get('/dog', logger, controller.test.getDog)
   router.post('/api/user/create', controller.user.createByEmail)
-  router.get('/api/user/getUserInfo', jwt, controller.user.show)
+  router.get('/api/user/getUserInfo', app.jwt as any, controller.user.show)
   router.post('/api/user/loginByEmail', controller.user.loginByEmail)
 };
