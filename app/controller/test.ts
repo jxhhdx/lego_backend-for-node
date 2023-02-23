@@ -10,8 +10,9 @@ export default class TestController extends Controller {
       id,
       body 
     }
-    ctx.body = resp
-    ctx.status = 200
+    // ctx.body = resp
+    // ctx.status = 200
+    ctx.helper.success({ ctx, res: resp })
   }
   async getDog() {
     const { service, ctx } = this
