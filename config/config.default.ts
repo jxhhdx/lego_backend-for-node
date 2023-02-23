@@ -34,7 +34,9 @@ export default (appInfo: EggAppInfo) => {
     myLogger: {
       allowedMethod: [ 'POST' ]
     },
-    secret: '1234567890'
+    jwt: {
+      secret: '1234567890'
+    }
   };
 
   // the return config will combines to EggAppConfig
