@@ -25,8 +25,11 @@ export default (appInfo: EggAppInfo) => {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     baseUrl: 'default.url',
     myLogger: {
-      allowedMethod: [ 'POST', 'GET' ]
+      allowedMethod: [ 'POST' ]
     },
+    mongoose: {
+      url: 'mongodb://root:123456@localhost:27017'
+    }
   };
 
   // the return config will combines to EggAppConfig
