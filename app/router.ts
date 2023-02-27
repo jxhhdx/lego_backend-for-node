@@ -16,4 +16,5 @@ export default (app: Application) => {
   router.get('/api/user/getUserInfo', app.jwt as any, controller.user.show)
   router.post('/api/user/loginByEmail', controller.user.loginByEmail)
   router.post('/api/user/genVeriCode', controller.user.sendVeriCode)
+  router.post('/api/user/loginByCellphone', controller.user.loginByCellphone)
 };
