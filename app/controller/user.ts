@@ -1,5 +1,9 @@
 import { Controller } from 'egg'
 
+const sendCodeRules = {
+  phoneNumber: { type: 'string', format: /^1[3-9]\d{9}$/, message: '手机号码格式错误' }
+}
+
 const userCreateRules = {
   username: 'email',
   password: { type: 'password', min: 8 }
@@ -24,6 +28,11 @@ export const userErrorMessages = {
     errno: 101004,
     message: '登录校验失败'
   },
+  // 发送短信验证码过于频繁
+  sendVeriCodeFrequentlyFailInfo: {
+    errno: 101005,
+    message: '请勿频繁获取短信验证码',
+  },
 }
 
 export default class UserController extends Controller {
@@ -42,17 +51,17 @@ export default class UserController extends Controller {
     const userData = await service.user.createByEmail(ctx.request.body)
     ctx.helper.success({ ctx, res: userData })
   }
-  validateUserInput() {
-    const { ctx, app } = this
-    // ctx.validate(userCreateRules)
-    const errors = app.validator.validate(userCreateRules, ctx.request.body)
-    ctx.logger.warn(errors)
-    return errors
-  }
+  // validateUserInput() {
+  //   const { ctx, app } = this
+  //   // ctx.validate(userCreateRules)
+  //   const errors = app.validator.validate(userCreateRules, ctx.request.body)
+  //   ctx.logger.warn(errors)
+  //   return errors
+  // }
   async loginByEmail() {
     const { ctx, service, app } = this
     // 检查用户的输入
-    const error = this.validateUserInput()
+    const error = this.validateUserInput(userCreateRules)
     if (error) {
       return ctx.helper.error({ ctx, errorType: 'userValidateFail', error })
     }
@@ -73,7 +82,36 @@ export default class UserController extends Controller {
     // Registered claims 注册相关的信息
     // Public claims 公共信息: should be unique like email, address or phone_number
     const token = app.jwt.sign({ username: user.username }, app.config.jwt.secret, { expiresIn: 60 * 60 })
-    ctx.helper.success({ ctx, res: {token}, msg: '登录成功' })
+    ctx.helper.success({ ctx, res: { token }, msg: '登录成功' })
+  }
+  validateUserInput(rules: any) {
+    const { ctx, app } = this
+    // ctx.validate(userCreateRules)
+    const errors = app.validator.validate(rules, ctx.request.body)
+    ctx.logger.warn(errors)
+    return errors
+  }
+  async sendVeriCode() {
+    const { ctx, app } = this
+    const { phoneNumber } = ctx.request.body
+    // 检查用户输入
+    const error = this.validateUserInput(sendCodeRules)
+    if (error) {
+      return ctx.helper.error({ ctx, errorType: 'userValidateFail', error })
+    }
+    // 获取 redis 的数据
+    // phoneVeriCode-1331111222
+    const preVeriCode = await app.redis.get(`phoneVeriCode-${phoneNumber}`)
+    // 判断是否存在
+    if (preVeriCode) {
+      return ctx.helper.error({ ctx, errorType: 'sendVeriCodeFrequentlyFailInfo' })
+    }
+    // [0 - 1)
+    // [0 - 1) * 9000 = [0 - 9000)
+    // [0 - 9000) + 1000 = [1000, 10000)
+    const veriCode = (Math.floor(((Math.random() * 9000) + 1000))).toString()
+    await app.redis.set(`phoneVeriCode-${phoneNumber}`, veriCode, 'ex', 60)
+    ctx.helper.success({ ctx, res: { veriCode } })
   }
   async show() {
     const { ctx, service, app } = this

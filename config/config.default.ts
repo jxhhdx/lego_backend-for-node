@@ -28,6 +28,15 @@ export default (appInfo: EggAppInfo) => {
     options: { dbName: 'legodb', user: 'root',pass: '123456' } as any
   }
 
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: 'mypassword',
+      db: 0
+    }
+  }
+
   config.jwt = {
     secret: '1234567890'
   }
