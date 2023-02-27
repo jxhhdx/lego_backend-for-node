@@ -12,7 +12,9 @@ export interface UserProps {
   phoneNumber?: string;
   createdAt: Date;
   updatedAt: Date;
-  type: 'email' | 'cellphone'
+  type: 'email' | 'cellphone' | 'oauth';
+  provider?: 'gitee';
+  oauthID?: string;
 }
 
 export default function initUserModel(app: Application) {
@@ -26,6 +28,8 @@ export default function initUserModel(app: Application) {
     email: { type: String },
     phoneNumber: { type: String },
     type: { type: String, default: 'email' },
+    provider: { type: String },
+    oauthID: { type: String },
   }, { 
     timestamps: true,
     toJSON: {

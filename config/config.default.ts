@@ -27,10 +27,10 @@ export default (appInfo: EggAppInfo) => {
   // }
   config.mongoose = {
     url: 'mongodb://127.0.0.1:27017',
-    options: { 
-      dbName: 'legodb', 
-      user: 'root', 
-      pass: process.env.MONGOOSE_PASSWORD 
+    options: {
+      dbName: 'legodb',
+      user: 'root',
+      pass: process.env.MONGOOSE_PASSWORD
     } as any
   }
 
@@ -49,6 +49,15 @@ export default (appInfo: EggAppInfo) => {
     }
   }
 
+  // gitee oauth config
+  const giteeOauthConfig = {
+    cid: process.env.GITEE_CID,
+    secret: process.env.GITEE_SECRET,
+    redirectURL: 'http://localhost:7001/api/users/passport/gitee/callback',
+    authURL: 'https://gitee.com/oauth/token?grant_type=authorization_code',
+    giteeUserAPI: 'https://gitee.com/api/v5/user'
+  }
+
   config.jwt = {
     secret: '1234567890'
   }
@@ -59,7 +68,8 @@ export default (appInfo: EggAppInfo) => {
     myLogger: {
       allowedMethod: ['POST']
     },
-    aliCloudConfig
+    aliCloudConfig,
+    giteeOauthConfig
   };
 
   // the return config will combines to EggAppConfig
