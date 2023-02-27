@@ -12,6 +12,8 @@ logs/
 package-lock.json
 *.js
 !.autod.conf.js
+log.txt
+.env
 
 app/**/*.js
 test/**/*.js

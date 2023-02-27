@@ -1,5 +1,7 @@
-import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
+import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg'
+import * as dotenv from 'dotenv'
 
+dotenv.config()
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -25,14 +27,24 @@ export default (appInfo: EggAppInfo) => {
   // }
   config.mongoose = {
     url: 'mongodb://127.0.0.1:27017',
-    options: { dbName: 'legodb', user: 'root',pass: '123456' } as any
+    options: { 
+      dbName: 'legodb', 
+      user: 'root', 
+      pass: process.env.MONGOOSE_PASSWORD 
+    } as any
+  }
+
+  const aliCloudConfig = {
+    accessKeyId: '',
+    accessKeySecret: '',
+    endpoint: 'dysmsapi.aliyuncs.com'
   }
 
   config.redis = {
     client: {
       port: 6379,
       host: '127.0.0.1',
-      password: 'mypassword',
+      password: process.env.REDIS_PASSWORD,
       db: 0
     }
   }
@@ -45,8 +57,9 @@ export default (appInfo: EggAppInfo) => {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     baseUrl: 'default.url',
     myLogger: {
-      allowedMethod: [ 'POST' ]
+      allowedMethod: ['POST']
     },
+    aliCloudConfig
   };
 
   // the return config will combines to EggAppConfig

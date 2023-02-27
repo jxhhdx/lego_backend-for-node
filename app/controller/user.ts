@@ -43,6 +43,11 @@ export const userErrorMessages = {
     errno: 101006,
     message: '验证码不正确',
   },
+  // 验证码发送失败
+  sendVeriCodeError: {
+    errno: 101007,
+    message: '验证码发送失败',
+  },
 }
 
 export default class UserController extends Controller {
@@ -120,15 +125,26 @@ export default class UserController extends Controller {
     // [0 - 1) * 9000 = [0 - 9000)
     // [0 - 9000) + 1000 = [1000, 10000)
     const veriCode = (Math.floor(((Math.random() * 9000) + 1000))).toString()
+    if (app.config.env === 'prod') {
+      const resp = await this.service.user.sendSMS(phoneNumber, veriCode)
+      // 发送短信
+      if (resp.body.code !== 'OK') {
+        return ctx.helper.error({ ctx, errorType: 'sendVeriCodeError' })
+      }
+    }
     await app.redis.set(`phoneVeriCode-${phoneNumber}`, veriCode, 'ex', 60)
-    ctx.helper.success({ ctx, res: { veriCode } })
+    ctx.helper.success({ 
+      ctx,
+      msg: '验证码发送成功',
+      res: app.config.env === 'prod' ? undefined : { veriCode }
+    })
   }
   async loginByCellphone() {
     const { ctx, app } = this
     const { phoneNumber, veriCode } = ctx.request.body
     // 检查用户输入
     const error = this.validateUserInput(userPhoneCreateRules)
-  
+
     if (error) {
       return ctx.helper.error({ ctx, errorType: 'userValidateFail', error })
     }
