@@ -10,9 +10,6 @@ export default (app: Application) => {
   //   allowedMethod: [ 'GET' ],
   // }, app)
   router.get('/', controller.home.index);
-  // router.get('/test/:id', controller.test.index)
-  // router.post('/test/:id', controller.test.index)
-  // router.get('/dog', logger, controller.test.getDog)
   router.post('/api/user/create', controller.user.createByEmail)
   router.get('/api/user/getUserInfo', app.jwt as any, controller.user.show)
   router.post('/api/user/loginByEmail', controller.user.loginByEmail)
@@ -22,4 +19,6 @@ export default (app: Application) => {
   router.get('/api/user/passport/gitee/callback', controller.user.oauthByGitee)
 
   router.post('/api/work/createWork', jwtMiddleware, controller.work.createWork)
+  router.get('/api/work/myList', jwtMiddleware, controller.work.myList)
+  router.get('/api/work/templateList', controller.work.templateList)
 };
