@@ -1,5 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg'
 import * as dotenv from 'dotenv'
+import { join } from 'path'
 
 dotenv.config()
 export default (appInfo: EggAppInfo) => {
@@ -72,6 +73,17 @@ export default (appInfo: EggAppInfo) => {
     giteeOauthConfig,
     H5BaseURL: 'http://localhost:7001/api/pages'
   };
+
+  config.multipart = {
+    mode: 'file',
+    tmpdir: join(appInfo.baseDir, 'uploads')
+  }
+  config.static = {
+    dir: [
+      { prefix: '/public', dir: join(appInfo.baseDir, 'app/public') },
+      { prefix: '/uploads', dir: join(appInfo.baseDir, 'uploads') }
+    ]
+  }
 
   config.cors = {
     origin: 'http://localhost:8080',

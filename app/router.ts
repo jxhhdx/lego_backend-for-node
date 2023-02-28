@@ -26,4 +26,7 @@ export default (app: Application) => {
   router.get('/api/templates/:id', controller.work.template)
   router.patch('/api/works/:id', jwtMiddleware, controller.work.update)
   router.delete('/api/works/:id', jwtMiddleware, controller.work.delete)
+
+  router.post('/api/utils/upload', controller.utils.fileLocalUpload)
+
 };

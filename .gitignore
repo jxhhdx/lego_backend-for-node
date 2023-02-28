@@ -21,3 +21,4 @@ config/**/*.js
 app/**/*.map
 test/**/*.map
 config/**/*.map
+uploads
