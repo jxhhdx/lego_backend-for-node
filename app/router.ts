@@ -18,7 +18,9 @@ export default (app: Application) => {
   router.get('/api/user/passport/gitee', controller.user.oauth)
   router.get('/api/user/passport/gitee/callback', controller.user.oauthByGitee)
 
-  router.post('/api/work/createWork', jwtMiddleware, controller.work.createWork)
-  router.get('/api/work/myList', jwtMiddleware, controller.work.myList)
-  router.get('/api/work/templateList', controller.work.templateList)
+  router.post('/api/works', jwtMiddleware, controller.work.createWork)
+  router.get('/api/works', jwtMiddleware, controller.work.myList)
+  router.get('/api/templates', controller.work.templateList)
+  router.patch('/api/works/:id', jwtMiddleware, controller.work.update)
+  router.delete('/api/works/:id', jwtMiddleware, controller.work.delete)
 };

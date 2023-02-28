@@ -69,7 +69,8 @@ export default (appInfo: EggAppInfo) => {
       allowedMethod: ['POST']
     },
     aliCloudConfig,
-    giteeOauthConfig
+    giteeOauthConfig,
+    H5BaseURL: 'http://localhost:7001/api/pages'
   };
 
   config.cors = {
