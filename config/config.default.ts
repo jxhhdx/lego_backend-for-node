@@ -35,8 +35,8 @@ export default (appInfo: EggAppInfo) => {
   }
 
   const aliCloudConfig = {
-    accessKeyId: '',
-    accessKeySecret: '',
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    accessKeySecret: process.env.ACCESS_KEY_SECRET,
     endpoint: 'dysmsapi.aliyuncs.com'
   }
 

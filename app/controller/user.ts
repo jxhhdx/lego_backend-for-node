@@ -130,7 +130,7 @@ export default class UserController extends Controller {
     // [0 - 1) * 9000 = [0 - 9000)
     // [0 - 9000) + 1000 = [1000, 10000)
     const veriCode = (Math.floor(((Math.random() * 9000) + 1000))).toString()
-    if (app.config.env === 'prod') {
+    if (true) {
       const resp = await this.service.user.sendSMS(phoneNumber, veriCode)
       // 发送短信
       if (resp.body.code !== 'OK') {
