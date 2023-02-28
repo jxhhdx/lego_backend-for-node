@@ -1,20 +1,15 @@
 import { Context } from 'egg'
-import { userErrorMessages } from '../controller/user'
-import { workErrorMessages } from '../controller/work'
+import { globalErrorMessages, GlobalErrorTypes } from '../error'
+
 interface RespType {
   ctx: Context;
   res?: any;
   msg?: string;
 }
 
-const globalErrorMessages = {
-  ...userErrorMessages,
-  ...workErrorMessages
-}
-
 interface ErrorRespType {
   ctx: Context;
-  errorType: keyof (typeof globalErrorMessages);
+  errorType: GlobalErrorTypes;
   error?: any;
 }
 
