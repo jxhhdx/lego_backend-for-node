@@ -29,4 +29,6 @@ export default (app: Application) => {
 
   router.post('/api/utils/upload', controller.utils.fileUploadByStream)
 
+  router.post('/api/utils/uploadToOSS', controller.utils.uploadToOSS)
+
 };

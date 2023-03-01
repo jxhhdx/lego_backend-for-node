@@ -41,6 +41,15 @@ export default (appInfo: EggAppInfo) => {
     endpoint: 'dysmsapi.aliyuncs.com'
   }
 
+  config.oss = {
+    client: {
+      accessKeyId: process.env.ACCESS_KEY_ID || '',
+      accessKeySecret: process.env.ACCESS_KEY_SECRET || '',
+      bucket: 'created-on-march-1-2023',
+      endpoint: 'oss-cn-hangzhou.aliyuncs.com'
+    }
+  }
+
   config.redis = {
     client: {
       port: 6379,
