@@ -74,10 +74,10 @@ export default (appInfo: EggAppInfo) => {
     H5BaseURL: 'http://localhost:7001/api/pages'
   };
 
-  config.multipart = {
-    mode: 'file',
-    tmpdir: join(appInfo.baseDir, 'uploads')
-  }
+  // config.multipart = {
+  //   mode: 'file',
+  //   tmpdir: join(appInfo.baseDir, 'uploads')
+  // }
   config.static = {
     dir: [
       { prefix: '/public', dir: join(appInfo.baseDir, 'app/public') },
