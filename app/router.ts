@@ -33,5 +33,6 @@ export default (app: Application) => {
   router.post('/utils/uploadToOSS', controller.utils.uploadToOSS)
   router.post('/utils/uploadByBusBoy', controller.utils.testBusBoy)
   router.post('/utils/uploadMutipleFiles', controller.utils.uploadMutipleFiles)
+  router.get('/pages/:idAndUuid', controller.utils.renderH5Page)
 
 };
