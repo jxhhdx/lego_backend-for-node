@@ -69,7 +69,9 @@ export default (appInfo: EggAppInfo) => {
   }
 
   config.jwt = {
-    secret: '1234567890'
+    enable: true,
+    secret: process.env.JWT_SECRET || '',
+    match: [ '/api/users/getUserInfo', '/api/works', '/api/utils/upload*' ]
   }
   // add your special config in here
   const bizConfig = {
