@@ -108,7 +108,8 @@ export default class UtilsController extends Controller {
   }
   async uploadMutipleFiles() {
     const { ctx, app } = this
-    const parts = ctx.multipart()
+    const { fileSize } = app.config.multipart
+    const parts = ctx.multipart({ limits: { fileSize: fileSize as number } })
     // { urls: [xxx, xxx ]}
     const urls: string[] = []
     let part: FileStream | string[]
@@ -117,10 +118,14 @@ export default class UtilsController extends Controller {
         app.logger.info(part)
       } else {
         try {
-          const savedOSSPath = join('imooc-test', nanoid(6) + extname(part.filename))
+          const savedOSSPath = join('uploadMutipleFiles', nanoid(6) + extname(part.filename))
           const result = await ctx.oss.put(savedOSSPath, part)
           const { url } = result
           urls.push(url)
+          if (part.truncated) {
+            await ctx.oss.delete(savedOSSPath)
+            return ctx.helper.error({ ctx, errorType: 'imageUploadFileSizeError', error: `Reach fileSize limit ${fileSize} bytes` })
+          }
         } catch (e) {
           await sendToWormhole(part)
           ctx.helper.error({ ctx, errorType: 'imageUploadFail' })

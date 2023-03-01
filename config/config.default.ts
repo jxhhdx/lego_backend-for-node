@@ -87,6 +87,10 @@ export default (appInfo: EggAppInfo) => {
   //   mode: 'file',
   //   tmpdir: join(appInfo.baseDir, 'uploads')
   // }
+  config.multipart = {
+    whitelist: ['.png', '.jpg', '.jpeg', '.gif', '.webp'],
+    fileSize: '1mb'
+  }
   config.static = {
     dir: [
       { prefix: '/public', dir: join(appInfo.baseDir, 'app/public') },
