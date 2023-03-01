@@ -20,7 +20,7 @@ export interface WorkProps {
   latestPublishAt?: Date;
 }
 
-module.exports = (app: Application) => {
+export default function initWorkModel(app: Application) {
   const mongoose = app.mongoose
   const Schema = mongoose.Schema
   const AutoIncrement = AutoIncrementFactory(mongoose)
