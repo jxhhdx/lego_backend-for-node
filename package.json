@@ -47,6 +47,9 @@
   },
   "devDependencies": {
     "@types/ali-oss": "^6.16.2",
+    "@types/busboy": "^0.3.1",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/lodash": "^4.14.178",
     "@types/mocha": "^2.2.40",
     "@types/node": "^16.11.7",
     "@types/sharp": "^0.31.1",
@@ -63,6 +66,7 @@
     "filemanager-webpack-plugin": "^6.1.7",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "release-it": "^14.12.3",
     "tslib": "^1.9.0",
     "typescript": "^3.0.0",
     "webpack": "^5.64.4",
