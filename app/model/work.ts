@@ -1,5 +1,6 @@
 import { Application } from 'egg'
-import { ObjectId } from 'mongoose'
+import { ObjectId, Schema } from 'mongoose'
+// import { Schema } from "mongoose"
 import * as AutoIncrementFactory from 'mongoose-sequence'
 import { UserProps } from './user'
 
@@ -16,7 +17,7 @@ export interface WorkProps {
   author: string;
   copiedCount: number;
   status?: 0 | 1 | 2;
-  user: ObjectId;
+  user: Schema.Types.ObjectId;
   latestPublishAt?: Date;
 }
 

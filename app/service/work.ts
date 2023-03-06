@@ -21,7 +21,7 @@ export default class WorkService extends Service {
     const uuid = nanoid(6)
     const newEmptyWork: Partial<WorkProps> = {
       ...payload,
-      user: Types.ObjectId(_id),
+      user: new Types.ObjectId(_id),
       author: username,
       uuid
     }
@@ -34,7 +34,7 @@ export default class WorkService extends Service {
     const res = await this.ctx.model.Work
       .find(find)
       .select(select)
-      .populate(populate)
+      .populate(populate as any)
       .skip(skip)
       .limit(pageSize)
       .sort(customSort)
