@@ -45,8 +45,8 @@ export default (appInfo: EggAppInfo) => {
     client: {
       accessKeyId: process.env.ACCESS_KEY_ID || '',
       accessKeySecret: process.env.ACCESS_KEY_SECRET || '',
-      bucket: 'created-on-march-1-2023',
-      endpoint: 'oss-cn-hangzhou.aliyuncs.com'
+      bucket: process.env.ALIYUN_BUCKET || '',
+      endpoint: process.env.ALIYUN_ENDPOINT || ''
     }
   }
 
