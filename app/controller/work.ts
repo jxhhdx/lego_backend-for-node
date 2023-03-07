@@ -22,6 +22,7 @@ export interface IndexCondition {
 export default class WorkController extends Controller {
   
   @inputValidate(channelCreateRules, 'channelValidateFail')
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissonFail', { value: { type: 'body', valueKey: 'workId' } })
   async createChannel() {
     const { ctx } = this
     const { name, workId } = ctx.request.body
@@ -37,6 +38,7 @@ export default class WorkController extends Controller {
     }
   }
 
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissonFail')
   async getWorkChannel() {
     const { ctx } = this
     const { id } = ctx.params
@@ -49,6 +51,7 @@ export default class WorkController extends Controller {
     }
   }
 
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissonFail', { key: 'channels.id' })
   async updateChannelName() {
     const { ctx } = this
     const { id } = ctx.params
@@ -60,7 +63,7 @@ export default class WorkController extends Controller {
       ctx.helper.error({ ctx, errorType: 'channelOperateFail' })
     }
   }
-  
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissonFail', { key: 'channels.id' })
   async deleteChannel() {
     const { ctx } = this
     const { id } = ctx.params
@@ -150,7 +153,7 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res })
   }
 
-  @checkPermission('Work', 'workNoPermissonFail')
+  @checkPermission('Work', 'workNoPermissonFail', { action: 'publish' })
   async publish(isTemplate: boolean) {
     const { ctx } = this
     const url = await this.service.work.publish(ctx.params.id, isTemplate)
