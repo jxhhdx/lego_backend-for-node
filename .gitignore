@@ -9,7 +9,6 @@ logs/
 .vscode
 *.swp
 *.lock
-package-lock.json
 !.autod.conf.js
 log.txt
 .env
