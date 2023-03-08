@@ -21,3 +21,6 @@ test/**/*.map
 config/**/*.map
 uploads
 app/public
+
+app.js
+casl.js

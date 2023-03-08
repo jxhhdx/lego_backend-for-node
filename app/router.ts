@@ -27,6 +27,8 @@ export default (app: Application) => {
   router.get('/templates/:id', controller.work.template)
   router.patch('/works/:id', jwtMiddleware, controller.work.update)
   router.delete('/works/:id', jwtMiddleware, controller.work.delete)
+  router.post('/works/publish/:id', controller.work.publishWork)
+  router.post('/works/publish-template/:id', controller.work.publishTemplate)
 
   router.post('/utils/upload', controller.utils.fileUploadByStream)
 
