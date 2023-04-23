@@ -27,6 +27,8 @@ export default (app: Application) => {
   router.get('/templates/:id', controller.work.template)
   router.patch('/works/:id', jwtMiddleware, controller.work.update)
   router.delete('/works/:id', jwtMiddleware, controller.work.delete)
+  router.post('/works/publish/:id', controller.work.publishWork)
+  router.post('/works/publish-template/:id', controller.work.publishTemplate)
 
   router.post('/utils/upload', controller.utils.fileUploadByStream)
 
@@ -34,5 +36,10 @@ export default (app: Application) => {
   router.post('/utils/uploadByBusBoy', controller.utils.testBusBoy)
   router.post('/utils/uploadMutipleFiles', controller.utils.uploadMutipleFiles)
   router.get('/pages/:idAndUuid', controller.utils.renderH5Page)
+
+  router.post('/channel', controller.work.createChannel)
+  router.get('/channel/getWorkChannels/:id', controller.work.getWorkChannel)
+  router.patch('/channel/updateName/:id', controller.work.updateChannelName)
+  router.delete('/channel/:id', controller.work.deleteChannel)
 
 };

@@ -9,8 +9,6 @@ logs/
 .vscode
 *.swp
 *.lock
-package-lock.json
-*.js
 !.autod.conf.js
 log.txt
 .env
@@ -22,3 +20,8 @@ app/**/*.map
 test/**/*.map
 config/**/*.map
 uploads
+app/public
+
+app.js
+casl.js
+.docker-volumes

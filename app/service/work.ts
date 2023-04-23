@@ -4,6 +4,12 @@ import { Types } from 'mongoose'
 import { WorkProps } from '../model/work'
 import { IndexCondition } from '../controller/work'
 
+
+type ObjectIdConstructor = {
+  (str: string): Types.ObjectId;
+  new(str: string): Types.ObjectId;
+}
+
 const defaultIndexCondition: Required<IndexCondition> = {
   pageIndex: 0,
   pageSize: 10,
@@ -21,7 +27,7 @@ export default class WorkService extends Service {
     const uuid = nanoid(6)
     const newEmptyWork: Partial<WorkProps> = {
       ...payload,
-      user: Types.ObjectId(_id),
+      user: (Types.ObjectId as unknown as ObjectIdConstructor)(_id),
       author: username,
       uuid
     }
@@ -34,7 +40,7 @@ export default class WorkService extends Service {
     const res = await this.ctx.model.Work
       .find(find)
       .select(select)
-      .populate(populate)
+      .populate(populate as any)
       .skip(skip)
       .limit(pageSize)
       .sort(customSort)
