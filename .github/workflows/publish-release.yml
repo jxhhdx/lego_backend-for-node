@@ -1,0 +1,37 @@
+name: 自动部署新版本到服务器
+# 在特定 tag 被 push 以后被触发
+on: [push]
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3.5.2
+      # 创建 env 文件
+      # build docker image
+      # start the app
+      - name: 'create env file'
+        run: |
+          touch .env
+          echo REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} >> .env
+          echo MONGOOSE_PASSWORD=${{ secrets.MONGOOSE_PASSWORD }} >> .env
+          echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
+          echo GITEE_CID=${{ secrets.GITEE_CID }} >> .env
+          echo ACCESS_KEY_ID=${{ secrets.ACCESS_KEY_ID }} >> .env
+          echo ACCESS_KEY_SECRET=${{ secrets.ACCESS_KEY_SECRET }} >> .env
+          echo ALIYUN_ENDPOINT=${{ secrets.ALIYUN_ENDPOINT }} >> .env
+          echo ALIYUN_BUCKET=${{ secrets.ALIYUN_BUCKET }} >> .env
+      # 使用阿里云ACR 完成 docker login 
+      - name: Login to Aliyun Container Registry (ACR)
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: https://registry.cn-hangzhou.aliyuncs.com
+          region-id: cn-hangzhou
+          username: "${{ secrets.ACR_USERNAME }}"
+          password: "${{ secrets.ACR_PASSWORD }}"
+      # 使用正确的github tag 对应ACR tag 进行 docker build
+      - name: Build image for ACR docker
+        run: docker build --tag "registry.cn-hangzhou.aliyuncs.com/hello666/hello:1.0.1" .
+      # 使用标记的 tag 进行 push
+      - name: Push Image to ACR
+        run: docker push registry.cn-hangzhou.aliyuncs.com/hello666/hello:1.0.1     
+          
