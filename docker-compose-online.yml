@@ -7,7 +7,7 @@ services:
       - '.docker-volumes/mongo/data:/data/db'
       - '$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/'
     ports:
-      - 27017:27017
+      - 27018:27017
     env_file:
       - .env
   lego-redis:
@@ -16,13 +16,13 @@ services:
     command: >
       --requirepass ${REDIS_PASSWORD}
     ports:
-      - 6379:6379
+      - 6378:6379
     env_file:
       - .env
   lego-backend:
-    image: registry.cn-hangzhou.aliyuncs.com/hello666/hello:1.0.0
+    image: registry.cn-hangzhou.aliyuncs.com/hello666/hello:1.0.1
     container_name: lego-backend
     ports:
-     - 7001:7001
+     - 7002:7001
     env_file:
       - .env
